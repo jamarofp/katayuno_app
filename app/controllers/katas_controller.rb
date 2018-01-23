@@ -1,9 +1,9 @@
 class KatasController < ApplicationController
   def index
-    @kata = Kata.all.first
+    @katas = Kata.all
   end
 
   def show
-    @kata = Kata.all.first
+    @kata = Kata.find(params[:id])
   end
 end
