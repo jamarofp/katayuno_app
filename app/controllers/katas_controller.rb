@@ -40,4 +40,11 @@ class KatasController < ApplicationController
       render :edit
     end
   end
+
+  def delete
+    @kata = Kata.find(params[:id])
+    @kata.destroy
+
+    redirect_to root_path
+  end
 end
