@@ -29,6 +29,23 @@ describe 'Kata' do
     expect(page).to have_content(kata_description)
   end
 
+  it 'can be updated' do
+    kata_title = 'Kata title initial'
+    kata_description = 'Kata description initial'
+    kata_title_edited = 'Kata title edited'
+    kata_description_edited = 'Kata description edited'
+    create_kata(title: kata_title, description: kata_description)
+
+    visit root_path
+    click_on('Edit')
+    fill_in(:kata_title, with: kata_title_edited)
+    fill_in(:kata_description, with: kata_description_edited)
+    click_on('Save')
+
+    expect(page).to have_content(kata_title_edited)
+    expect(page).to have_content(kata_description_edited)
+  end
+
   def create_kata(title: 'Kata_title', description: `Kata_description`)
     kata = Kata.new(title: title, description: description)
     kata.save
