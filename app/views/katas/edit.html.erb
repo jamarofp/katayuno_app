@@ -1,9 +1,3 @@
 <h1>Edit</h1>
 
-<p>
-  <%= form_for(@kata) do |f| %>
-    <%= f.text_field(:title) %>
-    <%= f.text_field(:description) %>
-    <%= f.submit('Save') %>
-  <% end %>
-</p>
+<%= render 'form', note: @kata %>
