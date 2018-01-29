@@ -2,6 +2,11 @@ require 'rails_helper'
 require 'capybara'
 
 describe 'Kata' do
+
+  before(:each) do
+    log_in
+  end
+
   it 'can be read' do
     kata_title = 'Second title'
     kata_description = 'Second description'
@@ -47,12 +52,26 @@ describe 'Kata' do
   end
 
   it 'can be deleted' do
-    create_kata
+    kata = create_kata
 
     visit root_path
     click_on('Delete')
 
-    expect(page).to have_no_content("Kata_title")
+    expect(page).to have_no_content(kata.title)
+  end
+
+
+  def log_in
+    user = User.new(
+        email: 'admin@test.com',
+        password: '12345678'
+      )
+    user.save
+
+    visit '/users/sign_in'
+    fill_in(:user_email, with: user.email)
+    fill_in(:user_password, with: user.password)
+    click_on('Log in')
   end
 
   def create_kata(title: 'Kata_title', description: 'Kata_description')
